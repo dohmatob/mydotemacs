@@ -1,0 +1,101 @@
+;; .oO (c) DOP (dohmatob elvis dopgima) Oo.
+;; THIS IS MY EVER-CHANGING DOTEMACS FILE!!
+;; XXX BEWARE OF HARD-CODED PATHS HEREIN!!!
+
+;; ++++
+;; MISC
+;; ++++ 
+
+; Start maximized
+(defun toggle-fullscreen ()
+  (interactive)
+  (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
+                         '(2 "_NET_WM_STATE_MAXIMIZED_VERT" 0))
+  (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
+                         '(2 "_NET_WM_STATE_MAXIMIZED_HORZ" 0))
+)
+(toggle-fullscreen)
+
+;; END // MISC
+
+;; ++++++++++++++++++
+;; AUTO COMPLETE MODE
+;; ++++++++++++++++++
+
+; XXX You need to download and install "auto complete mode"; the replace the follow by the spat-out output 
+(add-to-list 'load-path 
+	     "~/.emacs.d/")
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/home/jeanpaul/.emacs.d//ac-dict")
+(ac-config-default)
+
+;; END // AUTO COMPLETE MODE
+
+;; +++++
+;; CEDET
+;; +++++
+
+; Load CEDET
+(load-file "~/Downloads/cedet-1.1/common/cedet.el")
+
+(global-ede-mode t)
+(semantic-load-enable-excessive-code-helpers)
+(require 'semantic-ia)
+(require 'semantic-gcc)
+(semantic-add-system-include "/usr/include/boost" 'c++-mode)
+(setq-mode-local c-mode semanticdb-find-default-throttle
+                 '(project unloaded system recursive)) ; extract syntactic information when Emacs is idle
+
+; Integration with imenu
+(defun my-semantic-hook ()
+  (imenu-add-to-menubar "TAGS"))
+(add-hook 'semantic-init-hooks 'my-semantic-hook)
+
+; customization of semanticdb
+(require 'semanticdb)
+(global-semanticdb-minor-mode 1)
+
+;; if you want to enable support for gnu global
+(when (cedet-gnu-global-version-check t)
+  (require 'semanticdb-global)
+  (semanticdb-enable-gnu-global-databases 'c-mode)
+  (semanticdb-enable-gnu-global-databases 'c++-mode))
+
+;; enable ctags for some languages:
+;;  Unix Shell, Perl, Pascal, Tcl, Fortran, Asm
+(when (cedet-ectag-version-check)
+  (semantic-load-enable-primary-exuberent-ctags-support))
+
+; turn-on source code folding/unfolding feature
+(global-semantic-tag-folding-mode)
+
+;; END // CEDET
+
+;; +++
+;; ECB
+;; +++
+
+; Load ECB (Emacs Code Browser)
+(add-to-list 'load-path
+	     "~/Downloads/ecb-2.40")
+(require 'ecb)
+(require 'ecb-autoloads)
+
+; Disable tip-of-the-day crap
+(setq ecb-tip-of-the-day nil)
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(ecb-options-version "2.40"))
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ )
+
+;; END // ECB
+
+;; E.O.F.
