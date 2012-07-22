@@ -42,7 +42,7 @@
 ;; AUTO COMPLETE MODE
 ;; ++++++++++++++++++
 
-; XXX You need to download and install "auto complete mode"; the replace the follow by the spat-out output 
+; XXX You'll need to download and install "auto complete mode"; then replace the follow by the spat-out output 
 (add-to-list 'load-path 
 	     "~/.emacs.d/")
 (require 'auto-complete-config)
