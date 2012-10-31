@@ -6,25 +6,25 @@
 ;; MISC
 ;; ++++ 
 
-; Start maximized
-;; XXX remove X-term dependence and ignore function if already in maximized mode!!!
-(defun toggle-maximized ()
-  (interactive)
-  (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
-                         '(2 "_NET_WM_STATE_MAXIMIZED_VERT" 0))
-  (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
-                         '(2 "_NET_WM_STATE_MAXIMIZED_HORZ" 0))
-)
-(toggle-maximized)
+; ; Start maximized
+; ;; XXX remove X-term dependence and ignore function if already in maximized mode!!!
+; (defun toggle-maximized ()
+;   (interactive)
+;   (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
+;                          '(2 "_NET_WM_STATE_MAXIMIZED_VERT" 0))
+;   (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
+;                          '(2 "_NET_WM_STATE_MAXIMIZED_HORZ" 0))
+; )
+; (toggle-maximized)
 
-; Enable line-numbering
-(global-linum-mode 1)
+; ; Enable line-numbering
+; (global-linum-mode 1)
 
-; ; Highlight current line
-; (global-hl-line-mode 1)
+; ; ; Highlight current line
+; ; (global-hl-line-mode 1)
 
-; Highlight matching parenthesis
-(show-paren-mode 1)
+; ; Highlight matching parenthesis
+; (show-paren-mode 1)
 
 ;; +++++++++++
 ;; COLOR-THEME
@@ -33,7 +33,6 @@
 (add-to-list 'load-path
 	     "/usr/share/emacs23/site-lisp/emacs-goodies-el")
 (require 'color-theme)
-(color-theme-select)
 (color-theme-tty-dark)
 
 ;; END // MISC
@@ -51,12 +50,33 @@
 
 ;; END // AUTO COMPLETE MODE
 
+;; ++++++++++++++
+;; FLYMAKE & PEP8
+;; ++++++++++++++
+(add-to-list 'load-path "~/.emacs.d")
+(add-hook 'find-file-hook 'flymake-find-file-hook)
+(when (load "flymake" t)
+  (defun flymake-pyflakes-init ()
+    (let* ((temp-file (flymake-init-create-temp-buffer-copy
+               'flymake-create-temp-inplace))
+       (local-file (file-relative-name
+            temp-file
+            (file-name-directory buffer-file-name))))
+      (list "pycheckers"  (list local-file))))
+   (add-to-list 'flymake-allowed-file-name-masks
+             '("\\.py\\'" flymake-pyflakes-init)))
+(load-library "flymake-cursor")
+(global-set-key [f10] 'flymake-goto-prev-error)
+(global-set-key [f11] 'flymake-goto-next-error)
+
+;; END // FLYMAKE AND PEP8
+
 ;; +++++
 ;; CEDET
 ;; +++++
 
 ; Load CEDET
-(load-file "~/Downloads/cedet-1.1/common/cedet.el")
+(load-file "~/.emacs.d/cedet-1.1/common/cedet.el")
 
 (global-ede-mode t)
 (semantic-load-enable-excessive-code-helpers)
@@ -97,7 +117,7 @@
 
 ; Load ECB (Emacs Code Browser)
 (add-to-list 'load-path
-	     "~/Downloads/ecb-2.40")
+	     "~/.emacs.d/ecb-2.40")
 (require 'ecb)
 (require 'ecb-autoloads)
 
