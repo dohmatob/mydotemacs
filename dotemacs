@@ -6,25 +6,25 @@
 ;; MISC
 ;; ++++ 
 
-; ; Start maximized
-; ;; XXX remove X-term dependence and ignore function if already in maximized mode!!!
-; (defun toggle-maximized ()
-;   (interactive)
-;   (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
-;                          '(2 "_NET_WM_STATE_MAXIMIZED_VERT" 0))
-;   (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
-;                          '(2 "_NET_WM_STATE_MAXIMIZED_HORZ" 0))
-; )
+; Start maximized
+;; XXX remove X-term dependence and ignore function if already in maximized mode!!!
+(defun toggle-maximized ()
+  (interactive)
+  (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
+                         '(2 "_NET_WM_STATE_MAXIMIZED_VERT" 0))
+  (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
+                         '(2 "_NET_WM_STATE_MAXIMIZED_HORZ" 0))
+)
 ; (toggle-maximized)
 
-; ; Enable line-numbering
-; (global-linum-mode 1)
+; Enable line-numbering
+(global-linum-mode 1)
 
-; ; ; Highlight current line
-; ; (global-hl-line-mode 1)
+; Highlight current line
+; (global-hl-line-mode 1)
 
-; ; Highlight matching parenthesis
-; (show-paren-mode 1)
+; Highlight matching parenthesis
+(show-paren-mode 1)
 
 ;; +++++++++++
 ;; COLOR-THEME
@@ -33,6 +33,7 @@
 (add-to-list 'load-path
 	     "/usr/share/emacs23/site-lisp/emacs-goodies-el")
 (require 'color-theme)
+(color-theme-select)
 (color-theme-tty-dark)
 
 ;; END // MISC
@@ -50,11 +51,16 @@
 
 ;; END // AUTO COMPLETE MODE
 
+;; +++++++++++
+;; NXHTML-MODE
+;; +++++++++++
+(load "~/.emacs.d/nxhtml/autostart.el")
+
 ;; ++++++++++++++
 ;; FLYMAKE & PEP8
 ;; ++++++++++++++
 (add-to-list 'load-path "~/.emacs.d")
-(add-hook 'find-file-hook 'flymake-find-file-hook)
+(add-hook 'python-mode-hook 'flymake-find-file-hook)
 (when (load "flymake" t)
   (defun flymake-pyflakes-init ()
     (let* ((temp-file (flymake-init-create-temp-buffer-copy
