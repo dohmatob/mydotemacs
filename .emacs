@@ -51,10 +51,10 @@
 
 ;; END // AUTO COMPLETE MODE
 
-;; +++++++++++
-;; NXHTML-MODE
-;; +++++++++++
-(load "~/.emacs.d/nxhtml/autostart.el")
+; ;; +++++++++++
+; ;; NXHTML-MODE
+; ;; +++++++++++
+; (load "~/.emacs.d/nxhtml/autostart.el")
 
 ;; ++++++++++++++
 ;; FLYMAKE & PEP8
@@ -68,7 +68,7 @@
        (local-file (file-relative-name
             temp-file
             (file-name-directory buffer-file-name))))
-      (list "pycheckers"  (list local-file))))
+      (list "pycheckers.sh"  (list local-file))))
    (add-to-list 'flymake-allowed-file-name-masks
              '("\\.py\\'" flymake-pyflakes-init)))
 (load-library "flymake-cursor")
