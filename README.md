@@ -11,7 +11,8 @@ export PATH=$PATH:~
 Installing dependencies
 -----------------------
 To install all other dependencies, simply run apt-get from the command-line as follows:
-apt-get install emacs-goodies-el pylint pep8 exuberant-ctags
+  
+  apt-get install emacs-goodies-el pylint pep8 exuberant-ctags
 
 BUGS
 ----
