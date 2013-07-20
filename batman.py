@@ -9,7 +9,7 @@
 import sys
 from impacket.ImpactDecoder import EthDecoder 
 from impacket.ImpactPacket import IP, TCP
-from pcapy import open_offline
+from pcapy import open_offline, open_live
 from numpy import array, sum, mean, std
 
 _ethdecoder  = EthDecoder() # Ethereal (Layer 2) decoder
@@ -67,10 +67,15 @@ if __name__ == '__main__':
     if len(sys.argv) < 2:
         print "Usage: python %s <input_pcap_file> [output_file]"%sys.argv[0]
         sys.exit(-1)
+
     if len(sys.argv) > 2:
         ofh = open(sys.argv[2], 'a')
-    
-    devil = open_offline(sys.argv[1])
+
+    max_bytes = 1024
+    promisc = False
+    read_timeout = 100
+    dev = sys.argv[1]
+    devil = open_live(dev, max_bytes, promisc, read_timeout)
     
     # start main loop
     devil.loop(0, callback)
