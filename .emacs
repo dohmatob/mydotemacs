@@ -1,6 +1,5 @@
 ;; .oO (c) DOP (dohmatob elvis dopgima) Oo.
 ;; THIS IS MY EVER-CHANGING DOTEMACS FILE!!
-;; XXX BEWARE OF HARD-CODED PATHS HEREIN!!!
 
 ;; ++++
 ;; MISC
