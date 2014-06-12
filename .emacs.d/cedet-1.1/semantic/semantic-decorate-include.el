@@ -367,20 +367,20 @@ This mode provides a nice context menu on the include statements."
     ;; @TODO - if not a tag w/ a position, we need to get one.  How?
 
     (when (semantic-tag-with-position-p tag)
-      ;; XXX (Elvis): The following codeblock is responsible for a number
-      ;; of utterly abnoxious false-positive warnings thrown by semantic!
-      ;; So, I've disactived the said codeblock (commented-out)
+      XXX (Elvis): The following codeblock is responsible for a number
+      of utterly abnoxious false-positive warnings thrown by semantic!
+      So, I've disactived the said codeblock (commented-out)
 
-      ;; (let ((ol (semantic-decorate-tag tag
-      ;; 				       (semantic-tag-start tag)
-      ;; 				       (semantic-tag-end tag)
-      ;; 				       face))
-      ;; 	    )
-      ;; 	(semantic-overlay-put ol 'mouse-face 'highlight)
-      ;; 	(semantic-overlay-put ol 'keymap map)
-      ;; 	(semantic-overlay-put ol 'help-echo
-      ;; 			      "Header File : mouse-3 - Context menu")
-      ;; 	)
+      (let ((ol (semantic-decorate-tag tag
+      				       (semantic-tag-start tag)
+      				       (semantic-tag-end tag)
+      				       face))
+      	    )
+      	(semantic-overlay-put ol 'mouse-face 'highlight)
+      	(semantic-overlay-put ol 'keymap map)
+      	(semantic-overlay-put ol 'help-echo
+      			      "Header File : mouse-3 - Context menu")
+      	)
       )))
 
 ;;; Regular Include Functions
