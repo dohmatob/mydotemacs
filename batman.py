@@ -58,7 +58,7 @@ def callback(hdr, data):
             _pkts.append({'SYN_only':is_SYN_only(l3.get_th_flags()), \
                               "interarrival":interarrival # time interval between this pkt and the last one
                           })
-            if is_SYN_only(l3.get_th_flags()):
+            if is_SYN_only(l3.get_th_flags()) or 1:
                 print 'Got TCP-SYN %s:%s -> %s:%s'%(l2.get_ip_src(), l3.get_th_sport(), l2.get_ip_address(0), l3.get_th_dport())
 
 if __name__ == '__main__':

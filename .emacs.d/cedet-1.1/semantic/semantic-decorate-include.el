@@ -367,7 +367,10 @@ This mode provides a nice context menu on the include statements."
     ;; @TODO - if not a tag w/ a position, we need to get one.  How?
 
     (when (semantic-tag-with-position-p tag)
-      (+ 1 1)
+      ;; XXX (Elvis): The following codeblock is responsible for a number
+      ;; of utterly abnoxious false-positive warnings thrown by semantic!
+      ;; So, I've disactived the said codeblock (commented-out)
+
       ;; (let ((ol (semantic-decorate-tag tag
       ;; 				       (semantic-tag-start tag)
       ;; 				       (semantic-tag-end tag)
