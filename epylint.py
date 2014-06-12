@@ -30,10 +30,7 @@ while parent_path != "/" and os.path.exists(os.path.join(
 
 lint_path = lint_mod.__file__
 options = options or ['--disable=C,R,I']
-cmd = [sys.executable, lint_path] + options + [
-    '--msg-template',
-    ('{path}:{line}: {category} ({msg_id}, '
-     '{symbol}, {obj}) {msg}'), '-r', 'n', child_path]
+cmd = [sys.executable, lint_path] + options + ['-r', 'n', child_path]
 process = Popen(cmd, stdout=PIPE, cwd=parent_path, stderr=STDOUT,
                 env=_get_env(), universal_newlines=True)
 
