@@ -1,5 +1,11 @@
 #!/usr/bin/python
 
+"""
+Synopsis: epylint wrapper that filters a bunch of false-positive warnings and errors
+Author: DOHMATOB Elvis Dopgima <gmdopp@gmail.com> <elvis.dohmatob@inria.fr>
+
+"""
+
 import os
 import sys
 import re
