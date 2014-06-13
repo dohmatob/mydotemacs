@@ -5,9 +5,10 @@ import sys
 import re
 from subprocess import Popen, STDOUT, PIPE
 
-NUMPY_IGNORE = re.compile("Module 'numpy(?:\..+)?' has no '.+' member")
-SCIPY_IGNORE = re.compile("Module 'scipy(?:\..+)?' has no '.+' member")
-SCIPY_IGNORE2 = re.compile("No name '.+' in module 'scipy(?:\..+)?'")
+NUMPY_HAS_NO_FIELD = re.compile("Module 'numpy(?:\..+)?' has no '.+' member")
+SCIPY_HAS_NO_FIELD = re.compile("Module 'scipy(?:\..+)?' has no '.+' member")
+SCIPY_HAS_NO_FIELD2 = re.compile("No name '.+' in module 'scipy(?:\..+)?'")
+SK_ATTR_DEFINED_OUTSIDE_INIT = re.compile("Attribute '.+_' defined outside __init__")
 
 if __name__ == "__main__":
     basename = os.path.basename(sys.argv[1])
@@ -19,13 +20,19 @@ if __name__ == "__main__":
             continue
         elif "anomalous-backslash-in-string," in line:
             continue
-        if NUMPY_IGNORE.search(line):
+        if NUMPY_HAS_NO_FIELD.search(line):
             continue
-        if SCIPY_IGNORE.search(line):
+        if SCIPY_HAS_NO_FIELD.search(line):
             continue
-        if SCIPY_IGNORE2.search(line):
+        if SCIPY_HAS_NO_FIELD2.search(line):
             continue
         if "Used * or ** magic" in line:
+            continue
+        if "No module named" in line and "_flymake" in line:
+            continue
+        if SK_ATTR_DEFINED_OUTSIDE_INIT.search(line):
+            continue
+        if "Access to a protected member" in line:
             continue
         # XXX extend by adding more handles for false-positives here
         else:
