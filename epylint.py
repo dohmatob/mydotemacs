@@ -11,14 +11,17 @@ import sys
 import re
 from subprocess import Popen, STDOUT, PIPE
 
-NUMPY_HAS_NO_FIELD = re.compile("Module 'numpy(?:\..+)?' has no '.+' member")
-SCIPY_HAS_NO_FIELD = re.compile("Module 'scipy(?:\..+)?' has no '.+' member")
-SCIPY_HAS_NO_FIELD2 = re.compile("No name '.+' in module 'scipy(?:\..+)?'")
+NUMPY_HAS_NO_MEMBER = re.compile("Module 'numpy(?:\..+)?' has no '.+' member")
+SCIPY_HAS_NO_MEMBER = re.compile("Module 'scipy(?:\..+)?' has no '.+' member")
+SCIPY_HAS_NO_MEMBER2 = re.compile("No name '.+' in module 'scipy(?:\..+)?'")
+NIPY_HAS_NO_MEMBER = re.compile("Module 'nipy(?:\..+)?' has no '.+' member")
 SK_ATTR_DEFINED_OUTSIDE_INIT = re.compile("Attribute '.+_' defined outside __init__")
+REL_IMPORT_SHOULD_BE = re.compile("Relative import '.+', should be '.+")
+REDEFINING_NAME_FROM_OUTER_SCOPE = re.compile("Redefining name '.+' from outer scope")
 
 if __name__ == "__main__":
     basename = os.path.basename(sys.argv[1])
-    for line in Popen(['epylint', sys.argv[1], '--disable=C,R,I'  # filter these warnings
+    for line in Popen(['epylint', sys.argv[1], '--disable=C,R,I'  # filter thesew arnings
                        ], stdout=PIPE, stderr=STDOUT, universal_newlines=True).stdout:
         if line.startswith("***********"):
             continue
@@ -26,11 +29,11 @@ if __name__ == "__main__":
             continue
         elif "anomalous-backslash-in-string," in line:
             continue
-        if NUMPY_HAS_NO_FIELD.search(line):
+        if NUMPY_HAS_NO_MEMBER.search(line):
             continue
-        if SCIPY_HAS_NO_FIELD.search(line):
+        if SCIPY_HAS_NO_MEMBER.search(line):
             continue
-        if SCIPY_HAS_NO_FIELD2.search(line):
+        if SCIPY_HAS_NO_MEMBER2.search(line):
             continue
         if "Used * or ** magic" in line:
             continue
@@ -39,6 +42,12 @@ if __name__ == "__main__":
         if SK_ATTR_DEFINED_OUTSIDE_INIT.search(line):
             continue
         if "Access to a protected member" in line:
+            continue
+        if REL_IMPORT_SHOULD_BE.search(line):
+            continue
+        if REDEFINING_NAME_FROM_OUTER_SCOPE.search(line):
+            continue
+        if NIPY_HAS_NO_MEMBER.search(line):
             continue
         # XXX extend by adding more handles for false-positives here
         else:
