@@ -18,7 +18,7 @@ SK_ATTR_DEFINED_OUTSIDE_INIT = re.compile("Attribute '.+_' defined outside __ini
 
 if __name__ == "__main__":
     basename = os.path.basename(sys.argv[1])
-    for line in Popen(['epylint', sys.argv[1], '--disable=C,R,I'  # filter warnings
+    for line in Popen(['epylint', sys.argv[1], '--disable=C,R,I'  # filter these warnings
                        ], stdout=PIPE, stderr=STDOUT, universal_newlines=True).stdout:
         if line.startswith("***********"):
             continue
