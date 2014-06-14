@@ -11,43 +11,53 @@ import sys
 import re
 from subprocess import Popen, STDOUT, PIPE
 
+NOSE_NO_NAME = re.compile("No name '.+' in module 'nose(?:\..+)?'")
 NUMPY_HAS_NO_MEMBER = re.compile("Module 'numpy(?:\..+)?' has no '.+' member")
+NUMPY_NO_NAME = re.compile("No name '.+' in module 'numpy(?:\..+)?'")
 SCIPY_HAS_NO_MEMBER = re.compile("Module 'scipy(?:\..+)?' has no '.+' member")
-SCIPY_HAS_NO_MEMBER2 = re.compile("No name '.+' in module 'scipy(?:\..+)?'")
+SCIPY_NO_NAME = re.compile("No name '.+' in module 'scipy(?:\..+)?'")
 NIPY_HAS_NO_MEMBER = re.compile("Module 'nipy(?:\..+)?' has no '.+' member")
 SK_ATTR_DEFINED_OUTSIDE_INIT = re.compile("Attribute '.+_' defined outside __init__")
 REL_IMPORT_SHOULD_BE = re.compile("Relative import '.+', should be '.+")
 REDEFINING_NAME_FROM_OUTER_SCOPE = re.compile("Redefining name '.+' from outer scope")
+BUNCH_INSTANCE_NO_MEMBER = re.compile("Instance of 'Bunch' has no '.+' member")
 
 if __name__ == "__main__":
     basename = os.path.basename(sys.argv[1])
-    for line in Popen(['epylint', sys.argv[1], '--disable=C,R,I'  # filter thesew arnings
-                       ], stdout=PIPE, stderr=STDOUT, universal_newlines=True).stdout:
+    for line in Popen(
+        ['epylint', sys.argv[1], '--disable=C,R,I'  # filter thesew arnings
+         ], stdout=PIPE, stderr=STDOUT, universal_newlines=True).stdout:
         if line.startswith("***********"):
             continue
         elif line.startswith("No config file found,"):
             continue
         elif "anomalous-backslash-in-string," in line:
             continue
-        if NUMPY_HAS_NO_MEMBER.search(line):
+        elif NUMPY_HAS_NO_MEMBER.search(line):
             continue
-        if SCIPY_HAS_NO_MEMBER.search(line):
+        elif NUMPY_NO_NAME.search(line):
             continue
-        if SCIPY_HAS_NO_MEMBER2.search(line):
+        elif SCIPY_HAS_NO_MEMBER.search(line):
             continue
-        if "Used * or ** magic" in line:
+        elif SCIPY_NO_NAME.search(line):
             continue
-        if "No module named" in line and "_flymake" in line:
+        elif "Used * or ** magic" in line:
             continue
-        if SK_ATTR_DEFINED_OUTSIDE_INIT.search(line):
+        elif "No module named" in line and "_flymake" in line:
             continue
-        if "Access to a protected member" in line:
+        elif SK_ATTR_DEFINED_OUTSIDE_INIT.search(line):
             continue
-        if REL_IMPORT_SHOULD_BE.search(line):
+        elif "Access to a protected member" in line:
             continue
-        if REDEFINING_NAME_FROM_OUTER_SCOPE.search(line):
+        elif REL_IMPORT_SHOULD_BE.search(line):
             continue
-        if NIPY_HAS_NO_MEMBER.search(line):
+        elif REDEFINING_NAME_FROM_OUTER_SCOPE.search(line):
+            continue
+        elif NIPY_HAS_NO_MEMBER.search(line):
+            continue
+        elif NOSE_NO_NAME.search(line):
+            continue
+        elif BUNCH_INSTANCE_NO_MEMBER.search(line):
             continue
         # XXX extend by adding more handles for false-positives here
         else:
