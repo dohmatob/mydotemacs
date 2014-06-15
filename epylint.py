@@ -1,7 +1,8 @@
 #!/usr/bin/python
 
 """
-Synopsis: epylint wrapper that filters a bunch of false-positive warnings and errors
+Synopsis: epylint wrapper that filters a bunch of false-positive warnings
+and errors
 Author: DOHMATOB Elvis Dopgima <gmdopp@gmail.com> <elvis.dohmatob@inria.fr>
 
 """
@@ -17,10 +18,15 @@ NUMPY_NO_NAME = re.compile("No name '.+' in module 'numpy(?:\..+)?'")
 SCIPY_HAS_NO_MEMBER = re.compile("Module 'scipy(?:\..+)?' has no '.+' member")
 SCIPY_NO_NAME = re.compile("No name '.+' in module 'scipy(?:\..+)?'")
 NIPY_HAS_NO_MEMBER = re.compile("Module 'nipy(?:\..+)?' has no '.+' member")
-SK_ATTR_DEFINED_OUTSIDE_INIT = re.compile("Attribute '.+_' defined outside __init__")
+SK_ATTR_DEFINED_OUTSIDE_INIT = re.compile(
+    "Attribute '.+_' defined outside __init__")
 REL_IMPORT_SHOULD_BE = re.compile("Relative import '.+', should be '.+")
-REDEFINING_NAME_FROM_OUTER_SCOPE = re.compile("Redefining name '.+' from outer scope")
+REDEFINING_NAME_FROM_OUTER_SCOPE = re.compile(
+    "Redefining name '.+' from outer scope")
 BUNCH_INSTANCE_NO_MEMBER = re.compile("Instance of 'Bunch' has no '.+' member")
+MAYBE_NO_MEMBER = re.compile("maybe-no-member")
+ARGUMENTS_NUMBER_DIFFERS = re.compile(
+    "Arguments number differs from overridden method")
 
 if __name__ == "__main__":
     basename = os.path.basename(sys.argv[1])
@@ -58,6 +64,10 @@ if __name__ == "__main__":
         elif NOSE_NO_NAME.search(line):
             continue
         elif BUNCH_INSTANCE_NO_MEMBER.search(line):
+            continue
+        elif MAYBE_NO_MEMBER.search(line):
+            continue
+        elif ARGUMENTS_NUMBER_DIFFERS.search(line):
             continue
         # XXX extend by adding more handles for false-positives here
         else:
