@@ -143,6 +143,7 @@
 
 ;; END // ECB
 
+;; Trick to be able to use french <<accent circonflexe>>
 (load-library "iso-transl")
 
 ;; E.O.F.
