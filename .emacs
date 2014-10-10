@@ -143,4 +143,6 @@
 
 ;; END // ECB
 
+(load-library "iso-transl")
+
 ;; E.O.F.

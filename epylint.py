@@ -27,6 +27,7 @@ BUNCH_INSTANCE_NO_MEMBER = re.compile("Instance of 'Bunch' has no '.+' member")
 MAYBE_NO_MEMBER = re.compile("maybe-no-member")
 ARGUMENTS_NUMBER_DIFFERS = re.compile(
     "Arguments number differs from overridden method")
+CELL_VARIABLE_DEFINED_IN_LOOP = re.compile("Cell variable .+? defined in loop")
 
 if __name__ == "__main__":
     basename = os.path.basename(sys.argv[1])
@@ -68,6 +69,14 @@ if __name__ == "__main__":
         elif MAYBE_NO_MEMBER.search(line):
             continue
         elif ARGUMENTS_NUMBER_DIFFERS.search(line):
+            continue
+        elif "String statement has no effect" in line:
+            continue
+        elif "Used builtin function 'map'" in line:
+            continue
+        elif CELL_VARIABLE_DEFINED_IN_LOOP.search(line):
+            break
+        elif "list comprehension redefines " in line:
             continue
         # XXX extend by adding more handles for false-positives here
         else:
