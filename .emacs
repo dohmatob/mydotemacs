@@ -146,4 +146,8 @@
 ;; Trick to be able to use french <<accent circonflexe>>
 (load-library "iso-transl")
 
+;; Trick to (auto) reload all buffers when a file changes on disk, etc.
+;; src: http://stackoverflow.com/questions/1480572/how-to-have-emacs-auto-refresh-all-buffers-when-files-have-changed-on-disk
+(global-auto-revert-mode t)
+
 ;; E.O.F.
