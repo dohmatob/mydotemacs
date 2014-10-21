@@ -3,9 +3,9 @@
 """
 Synopsis: epylint wrapper that filters a bunch of false-positive warnings
 and errors
-Author: DOHMATOB Elvis Dopgima <gmdopp@gmail.com> <elvis.dohmatob@inria.fr>
 
 """
+# Author: DOHMATOB Elvis Dopgima <gmdopp@gmail.com> <elvis.dohmatob@inria.fr>
 
 import os
 import sys
@@ -28,6 +28,8 @@ MAYBE_NO_MEMBER = re.compile("maybe-no-member")
 ARGUMENTS_NUMBER_DIFFERS = re.compile(
     "Arguments number differs from overridden method")
 CELL_VARIABLE_DEFINED_IN_LOOP = re.compile("Cell variable .+? defined in loop")
+WARNINGS_HAS_NO_MEMBER = re.compile(
+    "Module 'warnings(?:\..+)?' has no '.+' member")
 
 if __name__ == "__main__":
     basename = os.path.basename(sys.argv[1])
@@ -77,6 +79,8 @@ if __name__ == "__main__":
         elif CELL_VARIABLE_DEFINED_IN_LOOP.search(line):
             break
         elif "list comprehension redefines " in line:
+            continue
+        elif WARNINGS_HAS_NO_MEMBER.search(line):
             continue
         # XXX extend by adding more handles for false-positives here
         else:
