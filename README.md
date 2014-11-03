@@ -20,7 +20,7 @@ Installing mydotemacs
 - Copy epylint.py to your home directory (~).
 - Finally, add the following line (necessary for flymake/pep8 to work properly) at the end of your ~/.bashrc file:
   
-  export PATH=$PATH:~	     
+  $ export PATH=$PATH:~	     
 
 New features 12th June 2014
 ---------------------------
