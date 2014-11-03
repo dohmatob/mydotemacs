@@ -28,7 +28,7 @@ My own epylint.py to avoid abnoxious pylint warnings (like: Module 'numpy' has n
 
 BUGS
 ----
-Send bug reports to me at: elvis.dohmatob@inria.fr
+Send bug reports to me at: gmdopp@gmail.com or elvis.dohmatob@inria.fr
 
 That's all!
 -DOP/ELVIS/SOLO
