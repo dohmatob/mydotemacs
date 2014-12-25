@@ -24,7 +24,7 @@ Installing mydotemacs
 
 New features 12th June 2014
 ---------------------------
-My own epylint.py to avoid abnoxious pylint warnings (like: Module 'numpy' has not 'dot' member ..., etc.)
+My own epylint.py to avoid abnoxious pylint warnings (like: Module 'numpy' has no 'dot' member ..., etc.)
 
 BUGS
 ----
