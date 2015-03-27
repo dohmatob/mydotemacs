@@ -9,7 +9,7 @@ To install all other dependencies, simply run apt-get from the command-line as f
   
   $ apt-get remove emacs24
   
-  $ apt-get install emacs24 emacs-goodies-el pylint pep8 exuberant-ctags
+  $ apt-get install emacs23 emacs-goodies-el pylint pep8 exuberant-ctags
 
 For best results, I recommend using emacs23, and not emacs24 (uninstalled as above, if present!).
 Installing mydotemacs
