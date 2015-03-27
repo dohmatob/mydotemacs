@@ -14,7 +14,7 @@ To install all other dependencies, simply run apt-get from the command-line as f
 For best results, I recommend using emacs23, and not emacs24 (uninstalled as above, if present!).
 Installing mydotemacs
 =====================
-- `https://github.com/dohmatob/mydotemacs.git`
+- `git clone git@github.com:dohmatob/mydotemacs.git`
 - Copy .emacs file to your home directory (~);
 - Copy .emacs.d directory to your home directory (~). If you already have a ~/.emacs.d directory, then copy the contents (files and subdirectories) of .emacs.d there.
 - Copy pycheckers.sh to your home directory (~).
