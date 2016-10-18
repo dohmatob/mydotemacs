@@ -150,4 +150,9 @@
 ;; src: http://stackoverflow.com/questions/1480572/how-to-have-emacs-auto-refresh-all-buffers-when-files-have-changed-on-disk
 (global-auto-revert-mode t)
 
+;; Declare the flyspell-mode function as auto-load
+(autoload 'flyspell-mode "flyspell" "On-the-fly spelling checker." t)
+;; Automate the starting of flyspell when editing LaTeX source files
+(add-hook 'LaTeX-mode-hook 'flyspell-mode)
+
 ;; E.O.F.
