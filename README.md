@@ -6,12 +6,9 @@ Installation
 Installing dependencies
 =======================
 To install all other dependencies, simply run apt-get from the command-line as follows:
-  
-  $ apt-get remove emacs24
-  
-  $ apt-get install emacs23 emacs-goodies-el pylint pep8 exuberant-ctags
+   
+  $ apt-get install emacs24 emacs-goodies-el pylint pep8 exuberant-ctags
 
-For best results, I recommend using emacs23, and not emacs24 (uninstalled as above, if present!).
 Installing mydotemacs
 =====================
 - `git clone git@github.com:dohmatob/mydotemacs.git`
@@ -21,7 +18,7 @@ Installing mydotemacs
 - Copy epylint.py to your home directory (~).
 - Finally, add the following line (necessary for flymake/pep8 to work properly) at the end of your ~/.bashrc file:
   
-  $ export PATH=$PATH:~	     
+  $ export PATH=$PATH:~  
 
 New features 12th June 2014
 ---------------------------
